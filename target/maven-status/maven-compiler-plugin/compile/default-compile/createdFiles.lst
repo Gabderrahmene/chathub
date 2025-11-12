@@ -1,0 +1,13 @@
+com\mycompany\chatroom\view\login$3.class
+com\mycompany\chatroom\view\register$3.class
+com\mycompany\chatroom\control\login_verif.class
+com\mycompany\chatroom\view\login$2.class
+com\mycompany\chatroom\view\login.class
+com\mycompany\chatroom\view\register$2.class
+com\mycompany\chatroom\control\Client.class
+com\mycompany\chatroom\view\register.class
+com\mycompany\chatroom\models\User.class
+com\mycompany\chatroom\view\register$1.class
+com\mycompany\chatroom\control\register_verif.class
+com\mycompany\chatroom\view\login$1.class
+com\mycompany\chatroom\control\Server.class
