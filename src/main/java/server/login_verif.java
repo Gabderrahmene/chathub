@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.chatroom.control;
+package server;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -16,7 +16,7 @@ import java.sql.Statement;
  */
 public class login_verif {
     public int verif_cred(String username, String password){
-        try (Connection conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/chathub", "root", null)) {
+        try (Connection conn = DriverManager.getConnection(System.getenv("chathubBaseUrl"), "root", null)) {
             // create a Statement
             try (Statement stmt = conn.createStatement()) {
                 //execute query
