@@ -5,7 +5,12 @@
 package com.mycompany.chatroom.view;
 
 import com.formdev.flatlaf.FlatDarkLaf;
-import com.mycompany.chatroom.control.Client;
+import com.mycompany.chatroom.control.ClientHandle;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
 
 /**
  *
@@ -14,12 +19,20 @@ import com.mycompany.chatroom.control.Client;
 public class login extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(login.class.getName());
-
+    private BufferedReader bf;
+    private PrintWriter pw;
     /**
      * Creates new form login
      */
     public login() {
-        initComponents();
+        try {
+            initComponents();
+            Socket soc = new Socket("localhost", 5640);
+            bf = new BufferedReader(new InputStreamReader(soc.getInputStream()));
+            pw = new PrintWriter(soc.getOutputStream(), true);
+        } catch (IOException ex) {
+            System.getLogger(login.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
     }
 
     /**
@@ -31,7 +44,6 @@ public class login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jProgressBar1 = new javax.swing.JProgressBar();
         username = new javax.swing.JTextField();
         password = new javax.swing.JTextField();
         login = new javax.swing.JButton();
@@ -88,7 +100,7 @@ public class login extends javax.swing.JFrame {
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(register)))
-                .addContainerGap(215, Short.MAX_VALUE))
+                .addContainerGap(191, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -116,13 +128,17 @@ public class login extends javax.swing.JFrame {
 
     private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
 
-        int id = new Client().login(username.getText(),password.getText());
-        System.out.println(id);
+        String id = new ClientHandle(this.bf,this.pw).login(username.getText(),password.getText());
+        if(!id.equals("-1")){
+            new homeScreen(this.bf,this.pw, id).setVisible(true);
+            dispose();
+        }
+        
     }//GEN-LAST:event_loginActionPerformed
 
     private void registerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerActionPerformed
         // TODO add your handling code here:
-        new register().setVisible(true);
+        new register(this.bf,this.pw).setVisible(true);
         dispose();
     }//GEN-LAST:event_registerActionPerformed
 
@@ -155,7 +171,6 @@ public class login extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JButton login;
     private javax.swing.JTextField password;
     private javax.swing.JButton register;

@@ -5,7 +5,9 @@
 package com.mycompany.chatroom.view;
 
 import com.formdev.flatlaf.FlatDarkLaf;
-import com.mycompany.chatroom.control.Client;
+import com.mycompany.chatroom.control.ClientHandle;
+import java.io.BufferedReader;
+import java.io.PrintWriter;
 
 /**
  *
@@ -14,12 +16,16 @@ import com.mycompany.chatroom.control.Client;
 public class register extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(register.class.getName());
-
+    private BufferedReader bf;
+    private PrintWriter pw;
     /**
      * Creates new form login
      */
-    public register() {
+    public register(BufferedReader bf,PrintWriter pw) {
         initComponents();
+        FlatDarkLaf.setup();
+        this.bf = bf;
+        this.pw = pw;
     }
 
     /**
@@ -123,36 +129,13 @@ public class register extends javax.swing.JFrame {
     }//GEN-LAST:event_loginActionPerformed
 
     private void registerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerActionPerformed
-        int id = new Client().register(username.getText(),password.getText());
+        String id = new ClientHandle(this.bf,this.pw).register(username.getText(),password.getText());
         System.out.println(id);
     }//GEN-LAST:event_registerActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        FlatDarkLaf.setup();
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new register().setVisible(true));
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

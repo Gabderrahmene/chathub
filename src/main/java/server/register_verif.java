@@ -15,20 +15,24 @@ import java.sql.Statement;
  * @author Click
  */
 public class register_verif {
-       public int verif_cred(String username, String password){
+       public String verif_cred(String username, String password){
         try (Connection conn = DriverManager.getConnection(System.getenv("chathubBaseUrl"), "root", null)) {
             // create a Statement
             try (Statement stmt = conn.createStatement()) {
                 try (ResultSet rs = stmt.executeQuery("INSERT INTO users (username, password) VALUES ('"+username+"','"+password+"')")) {
+                    return "0";
                 } catch (SQLException ex) {
                     System.getLogger(login_verif.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+                    return "-1";
                 }
             } catch (SQLException ex) {
                 System.getLogger(login_verif.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+                return "-1";
             }
         } catch (SQLException ex) {
             System.getLogger(login_verif.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            return "-1";
         }
-        return 0;
+
     }
 }

@@ -1,7 +1,12 @@
-/home/abdou/NetBeansProjects/chathub/src/main/java/com/mycompany/chatroom/control/Client.java
-/home/abdou/NetBeansProjects/chathub/src/main/java/com/mycompany/chatroom/control/Server.java
-/home/abdou/NetBeansProjects/chathub/src/main/java/com/mycompany/chatroom/control/login_verif.java
-/home/abdou/NetBeansProjects/chathub/src/main/java/com/mycompany/chatroom/control/register_verif.java
+/home/abdou/NetBeansProjects/chathub/src/main/java/com/mycompany/chatroom/control/ClientHandle.java
+/home/abdou/NetBeansProjects/chathub/src/main/java/com/mycompany/chatroom/models/Group.java
 /home/abdou/NetBeansProjects/chathub/src/main/java/com/mycompany/chatroom/models/User.java
+/home/abdou/NetBeansProjects/chathub/src/main/java/com/mycompany/chatroom/view/Color.java
+/home/abdou/NetBeansProjects/chathub/src/main/java/com/mycompany/chatroom/view/homeScreen.java
 /home/abdou/NetBeansProjects/chathub/src/main/java/com/mycompany/chatroom/view/login.java
 /home/abdou/NetBeansProjects/chathub/src/main/java/com/mycompany/chatroom/view/register.java
+/home/abdou/NetBeansProjects/chathub/src/main/java/server/Client.java
+/home/abdou/NetBeansProjects/chathub/src/main/java/server/Server.java
+/home/abdou/NetBeansProjects/chathub/src/main/java/server/get_groupes.java
+/home/abdou/NetBeansProjects/chathub/src/main/java/server/login_verif.java
+/home/abdou/NetBeansProjects/chathub/src/main/java/server/register_verif.java

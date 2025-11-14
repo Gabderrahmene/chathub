@@ -11,10 +11,12 @@ import java.io.PrintWriter;
 import java.io.BufferedReader;
 import java.net.ServerSocket;
 import java.net.Socket;
-import org.json.JSONObject;
+import java.util.concurrent.CopyOnWriteArrayList;
+
 
 public class Server extends Thread {
-	
+	private static final CopyOnWriteArrayList<Client> clients = new CopyOnWriteArrayList<>();
+
 	private final Socket Soc;
 	
 	public Server(Socket Soc) {
@@ -24,28 +26,37 @@ public class Server extends Thread {
 	@Override
 	public void run() {	
 	try { 
-  
+        
 	BufferedReader bf = new BufferedReader(new InputStreamReader(Soc.getInputStream()));
 
 	PrintWriter pw = new PrintWriter(Soc.getOutputStream(), true);
-
-        String username = bf.readLine();
-
-        String password = bf.readLine();
+        while(true){
+           String request=bf.readLine();
         
-        String request=bf.readLine();
-        
-        if(request.equals("login")){
-            int id = new login_verif().verif_cred(username, password);
-
-            pw.println(id);
+            switch (request) {
+                case "login" ->                     {
+                        String username = bf.readLine();
+                        String password = bf.readLine();
+                        String id = new login_verif().verif_cred(username, password);
+                        if(!id.equals("-1")){
+                            clients.add(new Client(id,username,pw));
+                        }           
+                        pw.println(id);
+                    }
+                case "register" ->                     {
+                        String username = bf.readLine();
+                        String password = bf.readLine();
+                        String id = new register_verif().verif_cred(username, password);
+                        pw.println(id);
+                    }
+                case "message" ->                     {
+                        String id = bf.readLine();
+                        String text = new get_groupes().get_groupes(id);
+                        pw.println(text);
+                    }
+                default -> pw.println("-1");
+            }
         }
-         if(request.equals("register")){
-            int id = new register_verif().verif_cred(username, password);
-
-            pw.println(id);
-        }
-       
 
         }  
 		catch (IOException bilal) {
